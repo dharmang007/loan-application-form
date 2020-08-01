@@ -5,7 +5,6 @@
 
 /********************* Import ***************************/
 import React,{useState,useEffect, Fragment} from 'react'
-import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -16,8 +15,11 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import BasicInformation from './BasicInformation';
+import Step2 from './Step2'
+import Step3 from './Step3'
 import Box from "../stylecomponents/Box";
 import SuccessAlertMessage from "../alertsMessages/SuccessAlert";
+
 /********************************************************/
 
 const steps = ['Basic Information', 'Step 2', 'Step 3'];
@@ -58,9 +60,9 @@ const ApplicationForm = () => {
             case 0:
                 return <BasicInformation/>
             case 1:
-                return <BasicInformation/>
+                return <Step2/>
             case 2:
-                return <BasicInformation/>
+                return <Step3/>
             case 3:
                 return <SuccessAlertMessage message="Application Submitted Successfully!" step={()=> setActiveStep(0)}/>
             default:
@@ -86,7 +88,7 @@ const ApplicationForm = () => {
                             <p className={classes.stepName}> Step { activeStep + 1 <= steps.length ? activeStep+1 : 1} : {steps[activeStep]}</p>    
                         </Grid>
                         <Grid item xs={6} >
-                            <h3>Step { activeStep + 1 <= steps.length ? activeStep+1 : 1} of { steps.length }</h3>
+                            <h3>Step { activeStep + 1 <= steps.length ? activeStep+1 : 0} of { steps.length }</h3>
                             {steps.map((label,index) => {
                                 var style = {
                                     backgroundColor: "#949c9c"
