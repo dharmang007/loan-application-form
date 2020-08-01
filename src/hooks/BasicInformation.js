@@ -9,15 +9,12 @@ const useStyles = makeStyles((theme)=>({
     container: {
       display: 'flex',
       flexWrap: 'wrap',
-    
+      margin: theme.spacing(3),
+      alignContent:'center',
     },
-    
-    dense: {
-      marginTop: 16,
-    },
-    menu: {
-      width: 200,
-    },
+    fields:{
+      margin:'auto',
+    }
   }));
 
 const loanPurposes = [
@@ -42,9 +39,10 @@ const BasicInformation = () => {
             <h3>Tell us little bit about yourself and your business loan needs</h3>
 
             <form className={classes.container} noValidate autoComplete="off">
-                <TextField
-                id="outlined-name"
-                label="Name"
+              |<div className={classes.fields}>
+              <TextField
+                id="fname"
+                label="First Name"
                 required
                 className={classes.textField}
                 value={fname}
@@ -52,6 +50,51 @@ const BasicInformation = () => {
                 margin="normal"
                 variant="outlined"
                 />
+                <br />
+                <TextField
+                  id="lname"
+                  label="Last Name"
+                  required
+                  className={classes.textField}
+                  value={lname}
+                  onChange={setLname}
+                  margin="normal"
+                  variant="outlined"
+                  />
+                <br />
+                <TextField
+                  id="email"
+                  label="Email"
+                  required
+                  className={classes.textField}
+                  value={email}
+                  onChange={setEmail}
+                  margin="normal"
+                  variant="outlined"
+                  />
+                  <br />
+                <TextField
+                  id="email"
+                  label="Email"
+                  required
+                  className={classes.textField}
+                  value={email}
+                  onChange={setEmail}
+                  margin="normal"
+                  variant="outlined"
+                  />
+                <br/>
+                <TextField
+                id="email"
+                label="Email"
+                required
+                className={classes.textField}
+                value={email}
+                onChange={setEmail}
+                margin="normal"
+                variant="outlined"
+                />
+              </div>
             </form>
 
         </div>
