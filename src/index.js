@@ -1,5 +1,5 @@
 /**
- * @author Dharmang Solanki
+ * @author Chinmay Vadgama
  * @description This is the index file for the project
  */
 
@@ -12,7 +12,6 @@ import store from './store';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 /*************************************/
-
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

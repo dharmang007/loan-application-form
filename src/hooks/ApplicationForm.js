@@ -1,5 +1,5 @@
 /**
- * @author Dharmang Solanki
+ * @author Chinmay Vadgama
  * @description This is the main Application form with 3 step process
  */
 
@@ -19,8 +19,12 @@ import Step2 from './Step2'
 import Step3 from './Step3'
 import Box from "../stylecomponents/Box";
 import SuccessAlertMessage from "../alertsMessages/SuccessAlert";
+import Toggle from '../ToggleRenderProps';
+import actions from '../actions';
+import { useDispatch } from 'react-redux';
 
 /********************************************************/
+
 
 const steps = ['Basic Information', 'Step 2', 'Step 3'];
 const useStyles = makeStyles((theme)=>({
@@ -44,8 +48,15 @@ const useStyles = makeStyles((theme)=>({
 
 const ApplicationForm = () => {
     const classes = useStyles();
+    const dispatch = useDispatch();
     const [activeStep,setActiveStep] = useState(0);
+    const [step1Data,setStep1Data] = useState(null);
     
+    const getStep1Data = (data) => {
+        setStep1Data(data);
+        
+    }
+
     const nextStep = () =>{
         setActiveStep(activeStep + 1);
         
@@ -58,12 +69,31 @@ const ApplicationForm = () => {
     var getStepContent = (step) => {
         switch(step){
             case 0:
-                return <BasicInformation/>
+                
+                var data = {
+                    step: activeStep
+                }
+                dispatch(actions.saveBasicDetails(data))
+                return <BasicInformation />
+
             case 1:
+                var data = {
+                    step: activeStep,
+                    userData:''
+                }
+                dispatch(actions.saveBasicDetails(data))
                 return <Step2/>
             case 2:
+                var data = {
+                    step: activeStep
+                }
+                dispatch(actions.saveBasicDetails(data))
                 return <Step3/>
             case 3:
+                var data = {
+                    step: activeStep
+                }
+                dispatch(actions.saveBasicDetails(data))
                 return <SuccessAlertMessage message="Application Submitted Successfully!" step={()=> setActiveStep(0)}/>
             default:
                 throw new Error('Invalid Step Value');
@@ -76,12 +106,26 @@ const ApplicationForm = () => {
                 <Toolbar>
                     <img src="CaminoLogo.png"/>
                 </Toolbar>
+                <div>
+                    <Toggle render={ ({on, toggle}) => (
+                        <div align='right'>
+                            {on && 
+                            <div align='center'>
+                                <h3> Need Help? Call or chat with us directly</h3>
+                                <div>
+                                <button style={{color:'White', backgroundColor:'#1f403b', borderColor:'#1f403b', fontSize:'20px'}}> CALL </button>
+                                <button style={{color:'White', backgroundColor:'#1f403b', borderColor:'#1f403b', fontSize:'20px'}}> EMAIL </button>
+                                </div>
+                                
+                            </div>}
+                            <button onClick={toggle} style={{color:'White', backgroundColor:'#1f403b', borderColor:'#1f403b', fontSize:'20px'}}>Help Open/Close</button>
+                        </div>
+                    )
+                    }/>
+                </div>
             </AppBar>
             <main className={classes.layout}>
                 <Paper className={classes.paper}>
-                    <Typography component="h1" variant="h4" align="center">
-                        Loan Application Form
-                    </Typography>
                     
                     <Grid container spacing={1}>
                         <Grid item xs={6} >
@@ -116,6 +160,14 @@ const ApplicationForm = () => {
                             variant="contained"
                             color="primary"
                             onClick={nextStep}
+                            disabled={()=>{
+                                if(step1Data != null){
+                                    return false;
+                                }
+                                else{
+                                    return true;
+                                }
+                            }}
                             className={classes.button}>
                                 {activeStep === steps.length-1 ? "Submit Application!":"Next"}
                             </Button>
@@ -125,8 +177,9 @@ const ApplicationForm = () => {
                 </Paper>
             </main>
         </Fragment>
-        
     )
 }
+
 export default ApplicationForm
+
 
